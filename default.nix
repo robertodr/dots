@@ -9,9 +9,9 @@ in
   dotfiles = mkHome {
     user = builtins.getEnv "USER";
     files = {
-      ".aliases" = inHome ".dotfiles/.aliases";
-      ".bcrc" = inHome ".dotfiles/.bcrc";
-      ".gitconfig" = inHome ".dotfiles/.gitconfig";
+      ".aliases" = inHome ".dots/.aliases";
+      ".bcrc" = inHome ".dots/.bcrc";
+      ".gitconfig" = inHome ".dots/.gitconfig";
     };
   };
 }
