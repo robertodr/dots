@@ -11,9 +11,13 @@ in
     files = {
       ".bcrc" = inHome ".dots/bcrc";
       ".gitconfig" = inHome ".dots/gitconfig";
-      ".config/fish/config.fish" = inHome ".dots/config.fish";
-      ".config/fish/aliases.fish" = inHome ".dots/aliases.fish";
-      ".config/fish/functions" = inHome ".dots/functions";
+      # fish configuration
+      ".config/fish/config.fish" = inHome ".dots/fish/config.fish";
+      ".config/fish/aliases.fish" = inHome ".dots/fish/aliases.fish";
+      ".config/fish/functions" = inHome ".dots/fish/functions";
+      # Stack configuration
+      ".stack/config.yaml" = inHome ".dots/stack/config.yaml";
+      ".stack/shell.nix" = inHome ".dots/stack/shell.nix";
     };
   };
 }
