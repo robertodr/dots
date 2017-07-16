@@ -11,6 +11,8 @@ in
     files = {
       ".bcrc" = inHome ".dots/bcrc";
       ".gitconfig" = inHome ".dots/gitconfig";
+      # Desktop background
+      ".background-image" = inHome ".dots/pulse-demon.png";
       # fish configuration
       ".config/fish/config.fish" = inHome ".dots/fish/config.fish";
       ".config/fish/aliases.fish" = inHome ".dots/fish/aliases.fish";
