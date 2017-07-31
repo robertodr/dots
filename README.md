@@ -9,12 +9,22 @@ My dotfiles, inspired by [juselius/dotfiles](https://github.com/juselius/dotfile
 
 ## Structure
 
+Notice that the full path to the file is given, so that modifications to the linked
+file are correctly propagated to the copy in the repo:
+
+```
+".config/fish/functions/fish_right_prompt.fish" = inHome ".dots/config/fish/functions/fish_right_prompt.fish";
+```
+
 - The `config` subdirectory contains files that will be linked into `.config`:
   - `fish` configuration files.
   - `liferea` configuration files.
 
 - The `local` subdirectory contains files that will be linked into `.local`:
   - `liferea` databases.
+
+- The `nixpkgs` subdirectory contains files for a per-user configuration of the
+  installed packages.
 
 - The `stack` subdirectory contains the configuration for the Stack Haskell
   toolset. It gets linked into `~/.stack`
