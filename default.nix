@@ -22,7 +22,7 @@ in
       ".stack/config.yaml" = inHome ".dots/stack/config.yaml";
       ".stack/shell.nix" = inHome ".dots/stack/shell.nix";
       # Per-user Nix configuration
-      ".nixpkgs/confix.nix" = inHome ".dots/nixpkgs/config.nix";
+      ".nixpkgs/config.nix" = inHome ".dots/nixpkgs/config.nix";
       # Liferea configuration
       ".config/liferea/accels" = inHome ".dots/config/liferea/accels";
       ".config/liferea/cookies.txt" = inHome ".dots/config/liferea/cookies.txt";
