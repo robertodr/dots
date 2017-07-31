@@ -4,14 +4,15 @@
 
   packageOverrides = pkgs : with pkgs; rec {
 
-   myTexLive = texlive.combine {
-     inherit (texlive) scheme-basic koma-script babel-german todonotes xkeyval
-       xcolor collection-pictures ms;
-   };
-
    all-env = [
-     base-env tools-env nix-tools-env archivers-env emacs-env apps-env
-     spelling-env development-env security-env
+     apps-env
+     archivers-env 
+     base-env 
+     development-env 
+     nix-tools-env 
+     security-env
+     spelling-env 
+     tools-env 
    ];
 
    base-env = buildEnv {
@@ -24,43 +25,19 @@
        dunst
        i3lock
        inotify-tools
-       htop
-       libnotify
-       networkmanagerapplet
-       rxvt_unicode
-       stow
-       trayer
-       haskellPackages.xmobar
-       xclip
        xbindkeys
-       xdotool
        xlibs.xinput
        xlibs.xmodmap
-       zile
+       xorg.xmessage
+       xorg.xvinfo
      ];
    };
 
    tools-env = buildEnv {
      name = "tools-env";
      paths = [
-       bind
-       binutils
-       file
        ghostscript
-       nox
-       nix-repl
-       mc
        imagemagick
-       parallel
-       psmisc
-       pinpoint
-       traceroute
-       telnet
-       tree
-       xfce.tumbler
-       xfce.ristretto
-       which
-       zsh-navigation-tools
      ];
    };
 
@@ -68,9 +45,6 @@
      name = "nix-tools-env";
      paths = [
        cabal2nix
-       dysnomia
-       nix-generate-from-cpan
-       nixops
        nixpkgs-lint
      ];
    };
@@ -84,36 +58,28 @@
      ];
    };
 
-   emacs-env = buildEnv {
-     name = "emacs-env";
-     paths = [
-       emacs
-       emacsMelpa.haskell-mode
-       emacsMelpa.scala-mode
-       emacsMelpa.shm
-       emacsMelpa.writegood-mode
-       emacsMelpa.magit
-     ];
-   };
-
    apps-env = buildEnv {
      name = "apps-env";
      paths = [
        areca
        calibre
-       chromium
+       drive
        evince
        feh
-       thunderbird
-       llpp
-       pass
+       firefox
        geeqie
-       gnucash
-       pcmanfm
+       google-chrome
+       liferea
+       meld
+       pass
+       pass
+       pdftk
        phototonic
-       electrum
        quasselClient
-       zim
+       rambox
+       spotify
+       taskwarrior
+       vlc
      ];
    };
 
@@ -121,27 +87,41 @@
      name = "spelling-env";
      paths = [
        aspell
-       aspellDicts.de
+       aspellDicts.it
        aspellDicts.en
+       aspellDicts.nb
      ];
    };
 
    development-env = buildEnv {
      name = "development-env";
      paths = [
-       gitFull
-       idea.idea-ultimate
-       subversion
+       autoconf 
+       automake
+       boost
+       ccache
+       clang
+       clang-analyzer
+       clang-tools
+       cmake
+       doxygen
+       gcc
+       gdb
+       gfortran
+       lcov
+       libtool
+       lldb
+       openmpi
+       valgrind
+       zlib
      ];
    };
 
    security-env = buildEnv {
      name = "security-env";
      paths = [
-       apg
-       gnupg
-       gnupg1compat
-       pinentry
+       gnupg1
+       keybase
      ];
    };
    

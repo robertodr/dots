@@ -16,15 +16,20 @@ in
       # fish configuration
       ".config/fish/config.fish" = inHome ".dots/config/fish/config.fish";
       ".config/fish/aliases.fish" = inHome ".dots/config/fish/aliases.fish";
-      ".config/fish/functions" = inHome ".dots/config/fish/functions";
+      ".config/fish/functions/fish_prompt.fish" = inHome ".dots/config/fish/functions/fish_prompt.fish";
+      ".config/fish/functions/fish_right_prompt.fish" = inHome ".dots/config/fish/functions/fish_right_prompt.fish";
       # Stack configuration
       ".stack/config.yaml" = inHome ".dots/stack/config.yaml";
       ".stack/shell.nix" = inHome ".dots/stack/shell.nix";
       # Per-user Nix configuration
-      #".nixpkgs" = inHome ".dots/nixpkgs";
+      ".nixpkgs/confix.nix" = inHome ".dots/nixpkgs/config.nix";
       # Liferea configuration
-      ".config/liferea" = inHome ".dots/config/liferea";
-      ".local/share/liferea" = inHome ".dots/local/share/liferea";
+      ".config/liferea/accels" = inHome ".dots/config/liferea/accels";
+      ".config/liferea/cookies.txt" = inHome ".dots/config/liferea/cookies.txt";
+      ".config/liferea/feedlist.opml" = inHome ".dots/config/liferea/feedlist.opml";
+      ".config/liferea/feedlist.opml.backup" = inHome ".dots/config/liferea/feedlist.opml.backup";
+      ".config/liferea/liferea.css" = inHome ".dots/config/liferea/liferea.css";
+      ".local/share/liferea/liferea.db" = inHome ".dots/local/share/liferea/liferea.db";
     };
   };
 }
