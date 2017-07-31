@@ -9,8 +9,12 @@ My dotfiles, inspired by [juselius/dotfiles](https://github.com/juselius/dotfile
 
 ## Structure
 
-- The `fish` subdirectory contains the configuration for the fish shell.  
-  It gets linked into `~/.config/fish`
+- The `config` subdirectory contains files that will be linked into `.config`:
+  - `fish` configuration files.
+  - `liferea` configuration files.
+
+- The `local` subdirectory contains files that will be linked into `.local`:
+  - `liferea` databases.
 
 - The `stack` subdirectory contains the configuration for the Stack Haskell
   toolset. It gets linked into `~/.stack`
