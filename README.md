@@ -23,8 +23,5 @@ file are correctly propagated to the copy in the repo:
 - The `local` subdirectory contains files that will be linked into `.local`:
   - `liferea` databases.
 
-- The `nixpkgs` subdirectory contains files for a per-user configuration of the
-  installed packages.
-
 - The `stack` subdirectory contains the configuration for the Stack Haskell
   toolset. It gets linked into `~/.stack`

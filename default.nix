@@ -20,11 +20,11 @@ in
       ".config/fish/aliases.fish" = inHome ".dots/config/fish/aliases.fish";
       ".config/fish/functions/fish_prompt.fish" = inHome ".dots/config/fish/functions/fish_prompt.fish";
       ".config/fish/functions/fish_right_prompt.fish" = inHome ".dots/config/fish/functions/fish_right_prompt.fish";
+      ".config/fish/functions/abspath.fish" = inHome ".dots/config/fish/functions/abspath.fish";
+      ".config/fish/misc/nix_fish_env.sh" = inHome ".dots/config/fish/misc/nix_fish_env.sh";
       # Stack configuration
       ".stack/config.yaml" = inHome ".dots/stack/config.yaml";
       ".stack/shell.nix" = inHome ".dots/stack/shell.nix";
-      # Per-user Nix configuration
-      ".nixpkgs/config.nix" = inHome ".dots/nixpkgs/config.nix";
       # Liferea configuration
       ".config/liferea/accels" = inHome ".dots/config/liferea/accels";
       ".config/liferea/cookies.txt" = inHome ".dots/config/liferea/cookies.txt";
