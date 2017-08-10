@@ -3,9 +3,18 @@ with import <nixpkgs> {}; {
     name = "PCMSolver";                                 
     buildInputs = [ 
       boost 
+      bundler
       ccache 
-      cmake 
+      clang
+      clang-tools
+      clang-analyzer
+      cmake
       doxygen
+      gcc
+      gfortran
+      gdb
+      lldb
+      openmpi
       python27Packages.breathe
       python27Packages.jupyter
       python27Packages.matplotlib
