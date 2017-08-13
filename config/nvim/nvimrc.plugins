@@ -33,7 +33,6 @@
         if &compatible
           set nocompatible      " Be iMproved
         endif
-        " FIXME This possibly needs to go later?
         set background=dark     " Assume a dark background
     " }
 
@@ -123,6 +122,7 @@
           call dein#add('vim-scripts/gitignore')
           call dein#add('autozimu/LanguageClient-neovim')
           call dein#add('Shougo/echodoc.vim')
+          call dein#add('sbdchd/neoformat')
       " }
 
       " Nix {

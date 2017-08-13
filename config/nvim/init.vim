@@ -445,6 +445,18 @@
         augroup END
     " }
 
+    " Neoformat {
+        let g:neoformat_enabled_c = ['clangformat']
+        let g:neoformat_enabled_cpp = ['clangformat']
+        let g:neoformat_enabled_haskell = ['hindent']
+        let g:neoformat_enabled_python = ['yapf']
+        let g:neoformat_enabled_ruby = ['rubocop']
+        augroup fmt
+            autocmd!
+            autocmd BufWritePre * silent! undojoin | Neoformat
+        augroup END
+    " }
+
     " Misc {
         if isdirectory(expand("~/.local/share/dein/repos/github.com/scrooloose/nerdtree"))
             let g:NERDShutUp=1
@@ -816,4 +828,5 @@
 
     execute "noremap " . s:robertodr_edit_config_mapping " :call <SID>EditConfig()<CR>"
     execute "noremap " . s:robertodr_apply_config_mapping . " :source ~/.config/nvim/init.vim<CR>"
+
 " }
