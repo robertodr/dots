@@ -1,7 +1,7 @@
 # dots
 
 My dotfiles, inspired by [juselius/dotfiles](https://github.com/juselius/dotfiles), MIT-licensed.
-    
+
     $ git clone https://github.com/robertodr/dots .dots
     $ ln -s .dots/default.nix .
     $ vim default.nix
@@ -27,7 +27,22 @@ file are correctly propagated to the copy in the repo:
 - The `stack` subdirectory contains the configuration for the Stack Haskell
   toolset. It gets linked into `~/.stack`
 
-## Installing Neovim plugins
+## Neovim configuration
+
+The Neovim configuration owes much to the [spf13-vim] Vim distribution.
+However, since I am using Neovim and most of the packages in spf13-vim are not useful,
+I've simplified and adapted its structure to my needs.
+
+The configuration files are in the `config/nvim/` directory of this repository.
+The main file is `init.vim`, which mirrors the contents of `.vimrc`.
+As in spf13-vim, there are some tiers of configuration available:[^1]
+
+1. `nvimrc.before` - loaded before configuration
+2. `nvimrc.plugins` - plugin configuration
+3. `init.vim` - nvim configuration
+
+See `nvimrc.plugins` for specifics on what options can be set to override plugin configuration. See `nvimrc.before` for specifics
+on what options can be overridden.
 
 Until I find a way to automatize, these operations have to be run by hand:
 
@@ -36,6 +51,9 @@ Until I find a way to automatize, these operations have to be run by hand:
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
 sh installer.sh ~/.local/share/dein
 ```
-2. Open Neovim and run `:call dein#install()`. The configuration file for Neovim is installed _via_ `nix-home`. 
+2. Open Neovim and run `:call dein#install()`. The configuration file for Neovim is installed _via_ `nix-home`.
 
-[`dein.vim` plugin manager]: https://github.com/Shougo/dein.vim 
+[^1] spf13-vim has additional tiers of configuration, for people maintaining forks of the distribution.
+
+[spf13-vim]: http://vim.spf13.com/
+[`dein.vim` plugin manager]: https://github.com/Shougo/dein.vim

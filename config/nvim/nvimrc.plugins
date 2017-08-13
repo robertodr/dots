@@ -1,0 +1,213 @@
+" Modeline and Notes {
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+"            _               _            _                      _           
+"  _ __ ___ | |__   ___ _ __| |_ ___   __| |_ __      _ ____   _(_)_ __ ___  
+" | '__/ _ \| '_ \ / _ \ '__| __/ _ \ / _` | '__|____| '_ \ \ / / | '_ ` _ \ 
+" | | | (_) | |_) |  __/ |  | || (_) | (_| | | |_____| | | \ V /| | | | | | |
+" |_|  \___/|_.__/ \___|_|   \__\___/ \__,_|_|       |_| |_|\_/ |_|_| |_| |_|
+"                                                                            
+"   This is the personal nvimrc.plugins file of Roberto Di Remigio.
+"   It is based on the .vimrc.bundles file of Steve Francia, but picking
+"   the stuff I want, use and understand.
+"   Plugins are managed using dein.
+"
+"   Copyright 2014 Steve Francia
+"   Copyright 2017 Roberto Di Remigio
+"
+"   Licensed under the Apache License, Version 2.0 (the "License");
+"   you may not use this file except in compliance with the License.
+"   You may obtain a copy of the License at
+"
+"       http://www.apache.org/licenses/LICENSE-2.0
+"
+"   Unless required by applicable law or agreed to in writing, software
+"   distributed under the License is distributed on an "AS IS" BASIS,
+"   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+"   See the License for the specific language governing permissions and
+"   limitations under the License.
+" }
+
+" Environment {
+
+    " Basics {
+        if &compatible
+          set nocompatible      " Be iMproved
+        endif
+        " FIXME This possibly needs to go later?
+        set background=dark     " Assume a dark background
+    " }
+
+    " Setup dein Support {
+        filetype off
+        set runtimepath+=/home/roberto/.local/share/dein/repos/github.com/Shougo/dein.vim
+    " }
+
+" }
+
+" Plugins {
+
+    if dein#load_state('/home/roberto/.local/share/dein')
+      call dein#begin('/home/roberto/.local/share/dein')
+    
+      " Let dein manage dein
+      call dein#add('/home/roberto/.local/share/dein/repos/github.com/Shougo/dein.vim')
+    
+      " Deps {
+          call dein#add('MarcWeber/vim-addon-mw-utils')
+          call dein#add('tomtom/tlib_vim')
+          if executable('ag')                                               
+              call dein#add('mileszs/ack.vim')
+              let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+          elseif executable('ack-grep')
+              let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+              call dein#add('mileszs/ack.vim')
+          elseif executable('ack')
+              call dein#add('mileszs/ack.vim')
+          endif
+      " }
+      
+      " General {
+          call dein#add('scrooloose/nerdtree')                                                                                 
+          call dein#add('iCyMind/NeoSolarized')
+          call dein#add('tpope/vim-surround')
+          call dein#add('tpope/vim-repeat')
+          call dein#add('rhysd/conflict-marker.vim')
+          call dein#add('jiangmiao/auto-pairs')
+          call dein#add('ctrlpvim/ctrlp.vim')
+          call dein#add('tacahiroy/ctrlp-funky')
+          call dein#add('terryma/vim-multiple-cursors')
+          call dein#add('vim-scripts/sessionman.vim')
+          call dein#add('vim-scripts/matchit.zip')
+          if (has("python") || has("python3"))
+              call dein#add('powerline/powerline', {'runtimepath':'/powerline/bindings/vim'})
+          else
+              call dein#add('vim-airline/vim-airline')
+              call dein#add('vim-airline/vim-airline-themes')
+          endif
+          call dein#add('powerline/fonts')
+          call dein#add('bling/vim-bufferline')
+          call dein#add('easymotion/vim-easymotion')
+          call dein#add('jistr/vim-nerdtree-tabs')
+          call dein#add('flazz/vim-colorschemes')
+          call dein#add('mbbill/undotree')
+          call dein#add('nathanaelkane/vim-indent-guides')
+          if !exists('g:robertodr_no_views')
+              call dein#add('vim-scripts/restore_view.vim')
+          endif
+          call dein#add('mhinz/vim-signify')
+          call dein#add('tpope/tpope-vim-abolish')
+          call dein#add('osyo-manga/vim-over')
+          call dein#add('kana/vim-textobj-user')
+          call dein#add('kana/vim-textobj-indent')
+          call dein#add('gcmt/wildfire.vim')
+          call dein#add('Konfekt/FastFold')
+          call dein#add('vim-scripts/Gundo')
+      " }
+      
+      " Writing {
+          call dein#add('reedes/vim-litecorrect')
+          call dein#add('reedes/vim-textobj-sentence')
+          call dein#add('reedes/vim-textobj-quote')
+          call dein#add('reedes/vim-wordy')
+      " }
+
+      " General Programming {
+          call dein#add('neomake/neomake')
+          call dein#add('tpope/vim-fugitive')
+          call dein#add('airblade/vim-gitgutter')
+          call dein#add('mattn/webapi-vim')
+          call dein#add('mattn/gist-vim')
+          call dein#add('scrooloose/nerdcommenter')
+          call dein#add('tpope/vim-commentary')
+          call dein#add('godlygeek/tabular')
+          call dein#add('luochen1990/rainbow')
+          if executable('ctags')
+              call dein#add('majutsushi/tagbar')
+          endif
+          call dein#add('vim-scripts/gitignore')
+          call dein#add('autozimu/LanguageClient-neovim')
+          call dein#add('Shougo/echodoc.vim')
+      " }
+
+      " Nix {
+          call dein#add('LnL7/vim-nix')
+      " }
+      
+      " CMake {
+          call dein#add('pboettch/vim-cmake-syntax')
+      " }
+                                                                                                   
+      " Snippets & AutoComplete {
+          " FIXME This section needs to be configured
+          call dein#add('Shougo/deoplete.nvim')       
+          call dein#add('Shougo/neosnippet.vim')
+          call dein#add('Shougo/neosnippet-snippets')
+          call dein#add('honza/vim-snippets')
+      " }
+
+      " Python {                                            
+          call dein#add('python-mode/python-mode')
+          call dein#add('yssource/python.vim')
+          call dein#add('vim-scripts/python_match.vim')
+          call dein#add('vim-scripts/pythoncomplete')
+      " }
+       
+      " Javascript {
+          call dein#add('elzr/vim-json')
+          call dein#add('groenewege/vim-less')
+          call dein#add('pangloss/vim-javascript')
+          call dein#add('briancollins/vim-jst')
+          call dein#add('kchmck/vim-coffee-script')
+      " }
+
+      " Haskell {                                       
+          call dein#add('travitch/hasksyn')
+          call dein#add('dag/vim2hs')
+          call dein#add('Twinside/vim-haskellConceal')
+          call dein#add('Twinside/vim-haskellFold')
+          call dein#add('Twinside/vim-hoogle')
+          call dein#add('enomsg/vim-haskellConcealPlus')
+          call dein#add('neovimhaskell/haskell-vim')
+          call dein#add('Shougo/vimproc.vim')
+          call dein#add('adinapoli/cumino')
+          call dein#add('bitc/vim-hdevtools')
+      " }
+                                                        
+      " HTML {
+          call dein#add('vim-scripts/HTML-AutoCloseTag')
+          call dein#add('hail2u/vim-css3-syntax')
+          call dein#add('gorodinskiy/vim-coloresque')
+          call dein#add('tpope/vim-haml')
+          call dein#add('mattn/emmet-vim')
+      " }
+                                                        
+      " Ruby {
+          call dein#add('tpope/vim-rails')
+          let g:rubycomplete_buffer_loading = 1
+          "let g:rubycomplete_classes_in_global = 1
+          "let g:rubycomplete_rails = 1
+      " }
+
+      " Misc {                                                
+          call dein#add('tpope/vim-markdown')
+          call dein#add('greyblake/vim-preview')
+          call dein#add('cespare/vim-toml')
+          call dein#add('vim-pandoc/vim-pandoc-syntax')
+      " }
+
+      " Finalize dein
+      call dein#end()
+      call dein#save_state()
+
+    endif
+
+    " Required:
+    filetype plugin indent on
+    syntax enable
+    
+    " If you want to install not installed plugins on startup.
+    if dein#check_install()
+      call dein#install()
+    endif
+
+" }

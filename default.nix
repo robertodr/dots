@@ -24,6 +24,8 @@ in
       ".config/fish/misc/nix_fish_env.sh" = inHome ".dots/config/fish/misc/nix_fish_env.sh";
       # Neovim configuration
       ".config/nvim/init.vim" = inHome ".dots/config/nvim/init.vim";
+      ".config/nvim/nvimrc.before" = inHome ".dots/config/nvim/nvimrc.before";
+      ".config/nvim/nvimrc.plugins" = inHome ".dots/config/nvim/nvimrc.plugins";
       # Stack configuration
       ".stack/config.yaml" = inHome ".dots/stack/config.yaml";
       ".stack/shell.nix" = inHome ".dots/stack/shell.nix";
