@@ -50,6 +50,7 @@
 
       " Let dein manage dein
       call dein#add('/home/roberto/.local/share/dein/repos/github.com/Shougo/dein.vim')
+      call dein#add('haya14busa/dein-command.vim')
 
       " Deps {
           call dein#add('MarcWeber/vim-addon-mw-utils')
@@ -97,6 +98,7 @@
           call dein#add('gcmt/wildfire.vim')
           call dein#add('Konfekt/FastFold')
           call dein#add('vim-scripts/Gundo')
+          call dein#add('Shougo/denite.nvim')
       " }
 
       " Writing {
@@ -120,7 +122,6 @@
               call dein#add('majutsushi/tagbar')
           endif
           call dein#add('vim-scripts/gitignore')
-          call dein#add('autozimu/LanguageClient-neovim')
           call dein#add('Shougo/echodoc.vim')
           call dein#add('sbdchd/neoformat')
       " }
@@ -136,9 +137,12 @@
       " Snippets & AutoComplete {
           " FIXME This section needs to be configured
           call dein#add('Shougo/deoplete.nvim')
+          " Snippets
           call dein#add('Shougo/neosnippet.vim')
           call dein#add('Shougo/neosnippet-snippets')
           call dein#add('honza/vim-snippets')
+          " Python autocomplete
+          call dein#add('zchee/deoplete-jedi')
       " }
 
       " Python {
@@ -189,6 +193,8 @@
           call dein#add('greyblake/vim-preview')
           call dein#add('cespare/vim-toml')
           call dein#add('vim-pandoc/vim-pandoc-syntax')
+          call dein#add('keith/tmux.vim')
+          call dein#add('ekalinin/Dockerfile.vim')
       " }
 
       " Finalize dein
