@@ -1,11 +1,11 @@
 " Modeline and Notes {
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
-"            _               _            _                      _           
-"  _ __ ___ | |__   ___ _ __| |_ ___   __| |_ __      _ ____   _(_)_ __ ___  
-" | '__/ _ \| '_ \ / _ \ '__| __/ _ \ / _` | '__|____| '_ \ \ / / | '_ ` _ \ 
+"            _               _            _                      _
+"  _ __ ___ | |__   ___ _ __| |_ ___   __| |_ __      _ ____   _(_)_ __ ___
+" | '__/ _ \| '_ \ / _ \ '__| __/ _ \ / _` | '__|____| '_ \ \ / / | '_ ` _ \
 " | | | (_) | |_) |  __/ |  | || (_) | (_| | | |_____| | | \ V /| | | | | | |
 " |_|  \___/|_.__/ \___|_|   \__\___/ \__,_|_|       |_| |_|\_/ |_|_| |_| |_|
-"                                                                            
+"
 "   This is the personal init.vim file of Roberto Di Remigio.
 "   It is based on the .vimrc file of Steve Francia, but picking
 "   the stuff I want, use and understand.
@@ -682,8 +682,6 @@
         endif
     " }
 
-
-
 " }
 
 " GUI Settings {
@@ -809,13 +807,13 @@
     function! s:ExpandFilenameAndExecute(command, file)
         execute a:command . " " . expand(a:file, ":p")
     endfunction
-     
+
     function! s:EditConfig()
         call <SID>ExpandFilenameAndExecute("tabedit", "~/.config/nvim/init.vim")
         call <SID>ExpandFilenameAndExecute("vsplit", "~/.config/nvim/nvimrc.before")
         call <SID>ExpandFilenameAndExecute("vsplit", "~/.config/nvim/nvimrc.plugins")
     endfunction
-     
+
     execute "noremap " . s:robertodr_edit_config_mapping " :call <SID>EditConfig()<CR>"
     execute "noremap " . s:robertodr_apply_config_mapping . " :source ~/.config/nvim/init.vim<CR>"
 " }

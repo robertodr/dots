@@ -78,12 +78,8 @@
           call dein#add('terryma/vim-multiple-cursors')
           call dein#add('vim-scripts/sessionman.vim')
           call dein#add('vim-scripts/matchit.zip')
-          if (has("python") || has("python3"))
-              call dein#add('powerline/powerline', {'rtp':'/powerline/bindings/vim'})
-          else
-              call dein#add('vim-airline/vim-airline')
-              call dein#add('vim-airline/vim-airline-themes')
-          endif
+          call dein#add('vim-airline/vim-airline')
+          call dein#add('vim-airline/vim-airline-themes')
           call dein#add('powerline/fonts')
           call dein#add('bling/vim-bufferline')
           call dein#add('easymotion/vim-easymotion')
