@@ -1,11 +1,11 @@
 " Modeline and Notes {
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
-"            _               _            _                      _           
-"  _ __ ___ | |__   ___ _ __| |_ ___   __| |_ __      _ ____   _(_)_ __ ___  
-" | '__/ _ \| '_ \ / _ \ '__| __/ _ \ / _` | '__|____| '_ \ \ / / | '_ ` _ \ 
+"            _               _            _                      _
+"  _ __ ___ | |__   ___ _ __| |_ ___   __| |_ __      _ ____   _(_)_ __ ___
+" | '__/ _ \| '_ \ / _ \ '__| __/ _ \ / _` | '__|____| '_ \ \ / / | '_ ` _ \
 " | | | (_) | |_) |  __/ |  | || (_) | (_| | | |_____| | | \ V /| | | | | | |
 " |_|  \___/|_.__/ \___|_|   \__\___/ \__,_|_|       |_| |_|\_/ |_|_| |_| |_|
-"                                                                            
+"
 "   This is the personal nvimrc.plugins file of Roberto Di Remigio.
 "   It is based on the .vimrc.bundles file of Steve Francia, but picking
 "   the stuff I want, use and understand.
@@ -48,14 +48,14 @@
 
     if dein#load_state('/home/roberto/.local/share/dein')
       call dein#begin('/home/roberto/.local/share/dein')
-    
+
       " Let dein manage dein
       call dein#add('/home/roberto/.local/share/dein/repos/github.com/Shougo/dein.vim')
-    
+
       " Deps {
           call dein#add('MarcWeber/vim-addon-mw-utils')
           call dein#add('tomtom/tlib_vim')
-          if executable('ag')                                               
+          if executable('ag')
               call dein#add('mileszs/ack.vim')
               let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
           elseif executable('ack-grep')
@@ -65,9 +65,9 @@
               call dein#add('mileszs/ack.vim')
           endif
       " }
-      
+
       " General {
-          call dein#add('scrooloose/nerdtree')                                                                                 
+          call dein#add('scrooloose/nerdtree')
           call dein#add('iCyMind/NeoSolarized')
           call dein#add('tpope/vim-surround')
           call dein#add('tpope/vim-repeat')
@@ -79,7 +79,7 @@
           call dein#add('vim-scripts/sessionman.vim')
           call dein#add('vim-scripts/matchit.zip')
           if (has("python") || has("python3"))
-              call dein#add('powerline/powerline', {'runtimepath':'/powerline/bindings/vim'})
+              call dein#add('powerline/powerline', {'rtp':'/powerline/bindings/vim'})
           else
               call dein#add('vim-airline/vim-airline')
               call dein#add('vim-airline/vim-airline-themes')
@@ -103,7 +103,7 @@
           call dein#add('Konfekt/FastFold')
           call dein#add('vim-scripts/Gundo')
       " }
-      
+
       " Writing {
           call dein#add('reedes/vim-litecorrect')
           call dein#add('reedes/vim-textobj-sentence')
@@ -132,26 +132,26 @@
       " Nix {
           call dein#add('LnL7/vim-nix')
       " }
-      
+
       " CMake {
           call dein#add('pboettch/vim-cmake-syntax')
       " }
-                                                                                                   
+
       " Snippets & AutoComplete {
           " FIXME This section needs to be configured
-          call dein#add('Shougo/deoplete.nvim')       
+          call dein#add('Shougo/deoplete.nvim')
           call dein#add('Shougo/neosnippet.vim')
           call dein#add('Shougo/neosnippet-snippets')
           call dein#add('honza/vim-snippets')
       " }
 
-      " Python {                                            
+      " Python {
           call dein#add('python-mode/python-mode')
           call dein#add('yssource/python.vim')
           call dein#add('vim-scripts/python_match.vim')
           call dein#add('vim-scripts/pythoncomplete')
       " }
-       
+
       " Javascript {
           call dein#add('elzr/vim-json')
           call dein#add('groenewege/vim-less')
@@ -160,7 +160,7 @@
           call dein#add('kchmck/vim-coffee-script')
       " }
 
-      " Haskell {                                       
+      " Haskell {
           call dein#add('travitch/hasksyn')
           call dein#add('dag/vim2hs')
           call dein#add('Twinside/vim-haskellConceal')
@@ -172,7 +172,7 @@
           call dein#add('adinapoli/cumino')
           call dein#add('bitc/vim-hdevtools')
       " }
-                                                        
+
       " HTML {
           call dein#add('vim-scripts/HTML-AutoCloseTag')
           call dein#add('hail2u/vim-css3-syntax')
@@ -180,7 +180,7 @@
           call dein#add('tpope/vim-haml')
           call dein#add('mattn/emmet-vim')
       " }
-                                                        
+
       " Ruby {
           call dein#add('tpope/vim-rails')
           let g:rubycomplete_buffer_loading = 1
@@ -188,7 +188,7 @@
           "let g:rubycomplete_rails = 1
       " }
 
-      " Misc {                                                
+      " Misc {
           call dein#add('tpope/vim-markdown')
           call dein#add('greyblake/vim-preview')
           call dein#add('cespare/vim-toml')
@@ -204,7 +204,7 @@
     " Required:
     filetype plugin indent on
     syntax enable
-    
+
     " If you want to install not installed plugins on startup.
     if dein#check_install()
       call dein#install()
