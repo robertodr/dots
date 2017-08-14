@@ -97,7 +97,6 @@
           call dein#add('kana/vim-textobj-indent')
           call dein#add('gcmt/wildfire.vim')
           call dein#add('Konfekt/FastFold')
-          call dein#add('vim-scripts/Gundo')
           call dein#add('Shougo/denite.nvim')
       " }
 
@@ -150,6 +149,11 @@
           call dein#add('yssource/python.vim')
           call dein#add('vim-scripts/python_match.vim')
           call dein#add('vim-scripts/pythoncomplete')
+      " }
+
+      " Fortran {
+          call dein#add('robertodr/fortran.vim')
+          call dein#add('vim-scripts/fortran.vim')
       " }
 
       " Javascript {

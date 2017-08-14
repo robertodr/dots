@@ -39,8 +39,8 @@
     "   let g:robertodr_no_views = 1
 
     " Leader keys
-    "   let g:robertodr_leader='\'
-    "   let g:robertodr_localleader='_'
+       let g:robertodr_leader=';'
+       let g:robertodr_localleader='_'
 
     " Disable easier moving in tabs and windows
     "   let g:robertodr_no_easyWindows = 1

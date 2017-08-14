@@ -1,10 +1,10 @@
 with import <nixpkgs> {}; {
   pcmEnv = stdenv.mkDerivation {
-    name = "PCMSolver";                                 
-    buildInputs = [ 
-      boost 
+    name = "PCMSolver";
+    buildInputs = [
+      boost
       bundler
-      ccache 
+      ccache
       clang
       clang-tools
       clang-analyzer
@@ -23,7 +23,7 @@ with import <nixpkgs> {}; {
       python27Packages.scipy
       python27Packages.sphinx
       python27Packages.sympy
-      zlib 
+      zlib
     ];
   };
 }
