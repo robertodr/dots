@@ -54,11 +54,6 @@
     " Clear search highlighting
     "   let g:robertodr_clear_search_highlight = 1
 
-    " Disable neosnippet expansion
-    " This maps over <C-k> and does some Supertab
-    " emulation with snippets
-    "   let g:robertodr_no_neosnippet_expand = 1
-
     " Disable whitespace stripping
     "   let g:robertodr_keep_trailing_whitespace = 1
 

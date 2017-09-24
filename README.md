@@ -27,6 +27,12 @@ file are correctly propagated to the copy in the repo:
 - The `stack` subdirectory contains the configuration for the Stack Haskell
   toolset. It gets linked into `~/.stack`
 
+## Terminal color schemes
+
+```
+wget -O gogh https://git.io/vQgMr; and chmod +x gogh; and ./gogh; and rm gogh
+```
+
 ## Neovim configuration
 
 The Neovim configuration owes much to the [spf13-vim] Vim distribution.

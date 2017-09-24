@@ -123,6 +123,7 @@
           call dein#add('vim-scripts/gitignore')
           call dein#add('Shougo/echodoc.vim')
           call dein#add('sbdchd/neoformat')
+          call dein#add('sheerun/vim-polyglot')
       " }
 
       " Nix {
@@ -152,7 +153,7 @@
       " }
 
       " Fortran {
-          call dein#add('robertodr/fortran.vim')
+          call dein#add('robertodr/ajt-fortran.vim')
           call dein#add('vim-scripts/fortran.vim')
       " }
 

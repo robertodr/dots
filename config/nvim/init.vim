@@ -151,7 +151,13 @@
 
 " Vim UI {
 
-    colorscheme NeoSolarized   " Load a colorscheme
+    " Color scheme {
+        set termguicolors
+        colorscheme NeoSolarized
+        let g:neosolarized_contrast = "high"
+        let g:neosolarized_visibility = "high"
+        let g:neosolarized_vertSplitBgTrans = 1
+    " }
 
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
@@ -618,7 +624,111 @@
 
     " deoplete {
         if isdirectory(expand("~/.local/share/dein/repos/github.com/Shougo/deoplete/"))
-        " FIXME Configure deoplete
+            let g:acp_enableAtStartup = 0
+            let g:deoplete#enable_at_startup = 1
+            let g:deoplete#enable_smart_case = 1
+            let g:deoplete#max_list = 15
+
+            " Define dictionary.
+            let g:deoplete#sources = {
+                        \ 'default' : '',
+                        \ 'vimshell' : $HOME.'/.vimshell_hist',
+                        \ 'scheme' : $HOME.'/.gosh_completions'
+                        \ }
+
+            " Define keyword.
+            if !exists('g:deoplete#keyword_patterns')
+                let g:deoplete#keyword_patterns = {}
+            endif
+            let g:deoplete#keyword_patterns['default'] = '\h\w*'
+
+            " Plugin key-mappings {
+                " These two lines conflict with the default digraph mapping of <C-K>
+                imap <C-k> <Plug>(neosnippet_expand_or_jump)
+                smap <C-k> <Plug>(neosnippet_expand_or_jump)
+                if exists('g:robertodr_noninvasive_completion')
+                    inoremap <CR> <CR>
+                    " <ESC> takes you out of insert mode
+                    inoremap <expr> <Esc>   pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
+                    " <CR> accepts first, then sends the <CR>
+                    inoremap <expr> <CR>    pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+                    " <Down> and <Up> cycle like <Tab> and <S-Tab>
+                    inoremap <expr> <Down>  pumvisible() ? "\<C-n>" : "\<Down>"
+                    inoremap <expr> <Up>    pumvisible() ? "\<C-p>" : "\<Up>"
+                    " Jump up and down the list
+                    inoremap <expr> <C-d>   pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+                    inoremap <expr> <C-u>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+                else
+                    " <C-k> Complete Snippet
+                    " <C-k> Jump to next snippet point
+                    imap <silent><expr><C-k> neosnippet#expandable() ?
+                                \ "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
+                                \ "\<C-e>" : "\<Plug>(neosnippet_expand_or_jump)")
+                    smap <TAB> <Right><Plug>(neosnippet_jump_or_expand)
+
+                    inoremap <expr><C-g> deoplete#undo_completion()
+                    inoremap <expr><C-l> deoplete#complete_common_string()
+
+                    " <CR>: close popup
+                    " <s-CR>: close popup and save indent.
+                    inoremap <expr><s-CR> pumvisible() ? deoplete#smart_close_popup()."\<CR>" : "\<CR>"
+
+                    function! CleverCr()
+                        if pumvisible()
+                            if neosnippet#expandable()
+                                let exp = "\<Plug>(neosnippet_expand)"
+                                return exp . deoplete#smart_close_popup()
+                            else
+                                return deoplete#smart_close_popup()
+                            endif
+                        else
+                            return "\<CR>"
+                        endif
+                    endfunction
+
+                    " <CR> close popup and save indent or expand snippet
+                    imap <expr> <CR> CleverCr()
+                    " <C-h>, <BS>: close popup and delete backword char.
+                    inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
+                    inoremap <expr><C-y> deoplete#smart_close_popup()
+                endif
+                " <TAB>: completion.
+                inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+                inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+
+                " Courtesy of Matteo Cavalleri
+
+                function! CleverTab()
+                    if pumvisible()
+                        return "\<C-n>"
+                    endif
+                    let substr = strpart(getline('.'), 0, col('.') - 1)
+                    let substr = matchstr(substr, '[^ \t]*$')
+                    if strlen(substr) == 0
+                        " nothing to match on empty string
+                        return "\<Tab>"
+                    else
+                        " existing text matching
+                        if neosnippet#expandable_or_jumpable()
+                            return "\<Plug>(neosnippet_expand_or_jump)"
+                        else
+                            return deoplete#manual_complete()
+                        endif
+                    endif
+                endfunction
+
+                imap <expr> <Tab> CleverTab()
+            " }
+
+            " Enable heavy omni completion.
+            if !exists('g:deoplete#omni#input_patterns')
+                let g:deoplete#omni#input_patterns = {}
+            endif
+            let g:deoplete#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+            let g:deoplete#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+            let g:deoplete#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+            let g:deoplete#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+            let g:deoplete#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
     " }
     " Normal Vim omni-completion {
     " To disable omni complete, add the following to your nvimrc.before file:
@@ -637,7 +747,21 @@
     " }
 
     " Snippets {
-        " FIXME Configure snippets for deoplete
+        " Use honza's snippets.
+        let g:neosnippet#snippets_directory='~/.local/share/dein/repos/github.com/vim-snippets/snippets'
+
+        " Enable neosnippet snipmate compatibility mode
+        let g:neosnippet#enable_snipmate_compatibility = 1
+
+        " For snippet_complete marker.
+        if has('conceal')
+            set conceallevel=2 concealcursor=niv
+        endif
+
+        " Disable the neosnippet preview candidate window
+        " When enabled, there can be too much visual noise
+        " especially when splits are used.
+        set completeopt-=preview
     " }
 
     " FIXME: Isn't this for Syntastic to handle?

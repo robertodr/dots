@@ -3,12 +3,12 @@ source ~/.config/fish/aliases.fish
 
 # direnv
 # https://direnv.net/
-#if type -P direnv
-#   eval (direnv hook fish)
-#end
+if type -P direnv
+    eval (direnv hook fish)
+end
 
 # nix
-eval (~/.config/fish/misc/nix_fish_env.sh) 2> /dev/null
+eval (~/.config/fish/misc/nix_fish_env.sh) 2>/dev/null
 
 #eval (python -m virtualfish)
 

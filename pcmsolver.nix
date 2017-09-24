@@ -6,13 +6,13 @@ with import <nixpkgs> {}; {
       bundler
       ccache
       clang
-      clang-tools
       clang-analyzer
+      clang-tools
       cmake
       doxygen
       gcc
-      gfortran
       gdb
+      gfortran
       lldb
       openmpi
       python27Packages.breathe
@@ -20,8 +20,10 @@ with import <nixpkgs> {}; {
       python27Packages.matplotlib
       python27Packages.numpy
       python27Packages.pyyaml
+      python27Packages.recommonmark
       python27Packages.scipy
       python27Packages.sphinx
+      python27Packages.sphinx_rtd_theme
       python27Packages.sympy
       zlib
     ];
