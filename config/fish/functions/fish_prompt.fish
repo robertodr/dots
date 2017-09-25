@@ -28,7 +28,7 @@ function fish_prompt --description 'Write out the prompt'
 
    # Configure __fish_git_prompt
    ## Stuff to show
-   set -g __fish_git_prompt_show_informative_status true 
+   set -g __fish_git_prompt_show_informative_status true
    set -g __fish_git_prompt_showupstream true
    set -g __fish_git_prompt_showdirtystate true
    set -g __fish_git_prompt_showuntrackedfiles true
@@ -50,14 +50,14 @@ function fish_prompt --description 'Write out the prompt'
    echo -n $white'╭─'$hotpink$USER$white'@'$orange$__fish_prompt_hostname$white':'$limegreen(shortened_path)
    echo
 
-   # Virtualfish
-   set -g __virtual_fish_prompt ""
-   if set -q VIRTUAL_ENV
-     set __virtual_fish_prompt (set_color -b blue white)"("(basename "$VIRTUAL_ENV")")"(set_color normal)" "
+   # Nix Shell
+   set -g __nixshell_fish_prompt ""
+   if set -q IN_NIX_SHELL
+     set __nixshell_fish_prompt (set_color purple)"[nix-shell]"(set_color normal)" "
    end
 
    # Prompt: line 2
-   echo -n $white'╰─ '$__fish_prompt_char$__virtual_fish_prompt
+   echo -n $white'╰─ '$__fish_prompt_char$__nixshell_fish_prompt
    __fish_git_prompt "(%s) "
 end
 
