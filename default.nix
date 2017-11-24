@@ -21,6 +21,7 @@ in
       ".config/fish/functions/fish_prompt.fish" = inHome ".dots/config/fish/functions/fish_prompt.fish";
       ".config/fish/functions/fish_right_prompt.fish" = inHome ".dots/config/fish/functions/fish_right_prompt.fish";
       ".config/fish/functions/abspath.fish" = inHome ".dots/config/fish/functions/abspath.fish";
+      ".config/fish/functions/ls.fish" = inHome ".dots/config/fish/functions/ls.fish";
       ".config/fish/functions/wttr.in.fish" = inHome ".dots/config/fish/functions/wttr.in.fish";
       ".config/fish/misc/nix_fish_env.sh" = inHome ".dots/config/fish/misc/nix_fish_env.sh";
       # Neovim

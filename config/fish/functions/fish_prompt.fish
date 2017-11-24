@@ -50,14 +50,21 @@ function fish_prompt --description 'Write out the prompt'
    echo -n $white'╭─'$hotpink$USER$white'@'$orange$__fish_prompt_hostname$white':'$limegreen(shortened_path)
    echo
 
+   set __addons 
    # Nix Shell
-   set -g __nixshell_fish_prompt ""
    if set -q IN_NIX_SHELL
-     set __nixshell_fish_prompt (set_color purple)"[nix-shell]"(set_color normal)" "
+     set __addons $__addons "+nix-shell"
    end
 
+   # VirtualEnv
+   if set -q VIRTUAL_ENV
+     set __addons $__addons "+$VIRTUAL_ENV"
+   end
+   set __addons_string (string join ' ' $__addons)
+   set __addons_fish_prompt (set_color purple)"[$__addons_string]"(set_color normal)" "
+
    # Prompt: line 2
-   echo -n $white'╰─ '$__fish_prompt_char$__nixshell_fish_prompt
+   echo -n $white'╰─ '$__fish_prompt_char$__addons_fish_prompt
    __fish_git_prompt "(%s) "
 end
 
