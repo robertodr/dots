@@ -46,26 +46,26 @@ function fish_prompt --description 'Write out the prompt'
    set -g __fish_git_prompt_color_dirtystate green
    set -g __fish_git_prompt_color_untrackedfiles blue
 
-   # Prompt: line 1
-   echo -n $white'╭─'$hotpink$USER$white'@'$orange$__fish_prompt_hostname$white':'$limegreen(shortened_path)
-   echo
-
-   set __addons 
+   set __addons
    # Nix Shell
    if set -q IN_NIX_SHELL
-     set __addons $__addons "+nix-shell"
+     set __addons $__addons '+nix-shell'
    end
 
    # VirtualEnv
    if set -q VIRTUAL_ENV
-     set __addons $__addons "+$VIRTUAL_ENV"
+     set __addons $__addons '+virtualenv'
    end
    set __addons_string (string join ' ' $__addons)
-   set __addons_fish_prompt (set_color purple)"[$__addons_string]"(set_color normal)" "
+   set __addons_fish_prompt (set_color purple)"[$__addons_string]"(set_color normal)
+
+   # Prompt: line 1
+   echo -n $white'╭─'$hotpink$USER$white'@'$orange$__fish_prompt_hostname$white':'$limegreen(shortened_path) $__addons_fish_prompt
+   echo
 
    # Prompt: line 2
-   echo -n $white'╰─ '$__fish_prompt_char$__addons_fish_prompt
-   __fish_git_prompt "(%s) "
+   echo -n $white'╰─ '$__fish_prompt_char
+   __fish_git_prompt '(%s) '
 end
 
 function shortened_path --description 'Print shortened current working directory'

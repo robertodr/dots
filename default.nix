@@ -15,6 +15,8 @@ in
       ".tmux.conf" = inHome ".dots/tmux.conf";
       # Desktop background
       ".background-image" = inHome ".dots/pulse-demon.png";
+      # direnv
+      ".config/direnv/direnvrc" = inHome ".dots/config/direnv/direnvrc";
       # fish
       ".config/fish/config.fish" = inHome ".dots/config/fish/config.fish";
       ".config/fish/aliases.fish" = inHome ".dots/config/fish/aliases.fish";
