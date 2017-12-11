@@ -11,6 +11,7 @@ in
     files = {
       ".bcrc" = inHome ".dots/bcrc";
       ".gitconfig" = inHome ".dots/gitconfig";
+      ".respectrc" = inHome ".dots/respectrc";
       # tmux configuration
       ".tmux.conf" = inHome ".dots/tmux.conf";
       # Desktop background

@@ -42,8 +42,6 @@
   gpgSign = true
 [log]
   mailmap = true
-[help]
-  autocorrect = 1
 [http]
   sslVerify = false
 [alias]
