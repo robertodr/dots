@@ -31,6 +31,8 @@ in
       ".config/nvim/init.vim" = inHome ".dots/config/nvim/init.vim";
       ".config/nvim/nvimrc.before" = inHome ".dots/config/nvim/nvimrc.before";
       ".config/nvim/nvimrc.plugins" = inHome ".dots/config/nvim/nvimrc.plugins";
+      # Spacemacs
+      ".spacemacs" = inHome ".dots/spacemacs";
       # Stack
       ".stack/config.yaml" = inHome ".dots/stack/config.yaml";
       ".stack/shell.nix" = inHome ".dots/stack/shell.nix";

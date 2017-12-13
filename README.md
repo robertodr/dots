@@ -65,6 +65,14 @@ sh installer.sh ~/.local/share/dein
 [TPM](https://github.com/tmux-plugins/tpm) is installed automatically when
 first running Tmux. Plugins should also be installed automatically.
 
+## Spacemacs configuration
+
+`nix-home` will install the `.spacemacs` configuration file to the home
+directory, but the [Spacemacs](http://spacemacs.org/#) repository will have to be cloned by hand:
+```
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+```
+
 [^1] spf13-vim has additional tiers of configuration, for people maintaining forks of the distribution.
 
 [spf13-vim]: http://vim.spf13.com/
