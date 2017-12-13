@@ -29,6 +29,7 @@ file are correctly propagated to the copy in the repo:
 
 ## Terminal color schemes
 
+This works with GNOME terminal, but you will have to have installed `gconf`
 ```
 wget -O gogh https://git.io/vQgMr; and chmod +x gogh; and ./gogh; and rm gogh
 ```
@@ -58,6 +59,11 @@ curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh >
 sh installer.sh ~/.local/share/dein
 ```
 2. Open Neovim and run `:call dein#install()`. The configuration file for Neovim is installed _via_ `nix-home`.
+
+## Tmux configuration
+
+[TPM](https://github.com/tmux-plugins/tpm) is installed automatically when
+first running Tmux. Plugins should also be installed automatically.
 
 [^1] spf13-vim has additional tiers of configuration, for people maintaining forks of the distribution.
 
