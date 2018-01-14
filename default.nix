@@ -2,8 +2,10 @@ with import <nixpkgs> {};
 with import <nixhome> { inherit stdenv; inherit pkgs; };
 let
   inHome = path:
-    let home = builtins.getEnv "HOME"; in
-    home + "/" + path;
+    let
+      home = builtins.getEnv "HOME";
+    in
+      home + "/" + path;
 in
 {
   dotfiles = mkHome {
@@ -43,14 +45,6 @@ in
       ".config/liferea/feedlist.opml.backup" = inHome ".dots/config/liferea/feedlist.opml.backup";
       ".config/liferea/liferea.css" = inHome ".dots/config/liferea/liferea.css";
       ".local/share/liferea/liferea.db" = inHome ".dots/local/share/liferea/liferea.db";
-      ## xmonad
-      #".xmonad/xmonad.hs" = inHome ".dots/xmonad/xmonad.hs";
-      #".xmonad/lib/NamedActions.hs" = inHome ".dots/xmonad/lib/NamedActions.hs";
-      #".xmonad/lib/SubmapMenu.hs" = inHome ".dots/xmonad/lib/SubmapMenu.hs";
-      ## Taffybar
-      #".config/taffybar/taffybar.rc" = inHome ".dots/config/taffybar/taffybar.rc";
-      ## Compton
-      #".config/compton.conf" = inHome ".dots/config/compton/compton.conf";
     };
   };
 }

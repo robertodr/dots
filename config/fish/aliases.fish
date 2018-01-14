@@ -1,6 +1,7 @@
+alias exa 'exa -bghHlS --git'
+alias ls 'exa'
 alias diff 'diff -u'
 alias xopen 'xdg-open'
 alias halt 'sudo halt -p'
 alias reboot 'sudo reboot'
 alias vim 'nvim'
-alias exa 'exa -bghHlS --git'

@@ -458,10 +458,10 @@
         let g:neoformat_enabled_haskell = ['hindent']
         let g:neoformat_enabled_python = ['yapf']
         let g:neoformat_enabled_ruby = ['rubocop']
-        augroup fmt
-            autocmd!
-            autocmd BufWritePre * silent! undojoin | Neoformat
-        augroup END
+        "augroup fmt
+        "    autocmd!
+        "    autocmd BufWritePre * silent! undojoin | Neoformat
+        "augroup END
     " }
 
     " Misc {
