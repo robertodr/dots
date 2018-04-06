@@ -1,4 +1,4 @@
-alias exa 'exa -bghHlS --git'
+alias exa 'exa -bghlHS --git'
 alias ls 'exa'
 alias diff 'diff -u'
 alias xopen 'xdg-open'
