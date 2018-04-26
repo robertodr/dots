@@ -1,1 +1,16 @@
 : ${XDG_CACHE_HOME:=$HOME/.cache}
+
+# Usage: use_nix [...]
+#
+# Load environment variables from `nix-shell`.
+# If you have a `default.nix` or `shell.nix` these will be
+# used by default, but you can also specify packages directly
+# (e.g `use nix -p ocaml`).
+#
+use_nix() {
+  direnv_load nix-shell --show-trace "$@" --run 'direnv dump'
+  if [[ $# = 0 ]]; then
+    watch_file default.nix
+    watch_file shell.nix
+  fi
+}
