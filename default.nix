@@ -18,6 +18,8 @@ in
       ".tmux.conf" = inHome ".dots/tmux.conf";
       # Desktop background
       ".background-image" = inHome ".dots/pulse-demon.png";
+      # Awesome
+      ".config/awesome/rc.lua" = inHome ".dots/config/awesome/rc.lua";
       # direnv
       ".config/direnv/direnvrc" = inHome ".dots/config/direnv/direnvrc";
       # fish
