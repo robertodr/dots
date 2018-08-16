@@ -31,6 +31,9 @@ in
       ".config/fish/functions/ls.fish" = inHome ".dots/config/fish/functions/ls.fish";
       ".config/fish/functions/wttr.in.fish" = inHome ".dots/config/fish/functions/wttr.in.fish";
       ".config/fish/misc/nix_fish_env.sh" = inHome ".dots/config/fish/misc/nix_fish_env.sh";
+      # Kitty
+      ".config/kitty/kitty.conf" = inHome ".dots/config/kitty/kitty.conf";
+      ".config/kitty/kitty.session" = inHome ".dots/config/kitty/kitty.session";
       # Neovim
       ".config/nvim/init.vim" = inHome ".dots/config/nvim/init.vim";
       ".config/nvim/nvimrc.before" = inHome ".dots/config/nvim/nvimrc.before";

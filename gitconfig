@@ -2,6 +2,9 @@
   name = Roberto Di Remigio
   email = roberto.diremigio@gmail.com
   signingkey = DFB29C6E
+[github]
+  user =
+  oauth-token = 10c5ff78adaaac1e931e611fa49754dd1f0a59f5
 [color "branch"]
   current = yellow reverse
   local = yellow
@@ -70,4 +73,3 @@
   accept-theirs = "!f() { files=\"$@\"; [ -z $files ] && files='.'; git checkout --theirs -- $files; git add -u $files; }; f"
   recent = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   branch-name = rev-parse --abbrev-ref HEAD
-

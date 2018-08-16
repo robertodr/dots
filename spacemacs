@@ -42,6 +42,7 @@ values."
      c-c++
      colors
      csv
+     docker
      emacs-lisp
      git
      github
@@ -61,6 +62,7 @@ values."
      spell-checking
      spotify
      syntax-checking
+     themes-megapack
      version-control
      windows-scripts
      yaml
@@ -151,7 +153,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 14
+                               :size 16
                                :weight normal
                                :width normal
                                :powerline-scale 1.5)
@@ -321,6 +323,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   ;; Set up for LaTeX layer
   (setq latex-build-command "LatexMk")
+
+  ;; Magit set up
+  (setq magit-repository-directories '("~/Workspace/"))
+  (setq-default git-commit-summary-max-length 50)
   )
 
 (defun dotspacemacs/user-config ()
@@ -364,7 +370,6 @@ you should place your code here."
 
   ;; Set up for Python layer
   (setq python-test-runner 'pytest)
-  (setq python-enable-yapf-format-on-save t)
   (setq python-sort-imports-on-save t)
 
   ;; Set up for shell layer
@@ -398,7 +403,7 @@ you should place your code here."
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
  '(package-selected-packages
    (quote
-    (csv-mode yasnippet-snippets smex pandoc-mode ox-pandoc rainbow-mode rainbow-identifiers lua-mode color-identifiers-mode stickyfunc-enhance srefactor spotify powershell magit-gh-pulls insert-shebang helm-spotify-plus multi helm-gtags helm-company helm-c-yasnippet github-search github-clone github-browse-file gist gh marshal logito pcache ht ggtags fuzzy fish-mode disaster company-statistics company-shell company-nixos-options company-c-headers company-auctex company-anaconda company cmake-mode clang-format auto-yasnippet yasnippet ac-ispell auto-complete xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help unfill org-ref pdf-tools key-chord ivy tablist mwim helm-bibtex parsebib biblio biblio-core auctex-latexmk auctex org-mime yaml-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download nix-mode mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-nixos-options nixos-options helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub let-alist with-editor diff-hl auto-dictionary ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (dockerfile-mode docker json-mode docker-tramp json-snatcher json-reformat csv-mode yasnippet-snippets smex pandoc-mode ox-pandoc rainbow-mode rainbow-identifiers lua-mode color-identifiers-mode stickyfunc-enhance srefactor spotify powershell magit-gh-pulls insert-shebang helm-spotify-plus multi helm-gtags helm-company helm-c-yasnippet github-search github-clone github-browse-file gist gh marshal logito pcache ht ggtags fuzzy fish-mode disaster company-statistics company-shell company-nixos-options company-c-headers company-auctex company-anaconda company cmake-mode clang-format auto-yasnippet yasnippet ac-ispell auto-complete xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help unfill org-ref pdf-tools key-chord ivy tablist mwim helm-bibtex parsebib biblio biblio-core auctex-latexmk auctex org-mime yaml-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download nix-mode mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-nixos-options nixos-options helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub let-alist with-editor diff-hl auto-dictionary ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(projectile-use-git-grep t)
  '(safe-local-variable-values
    (quote
@@ -410,3 +415,30 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
+ '(package-selected-packages
+   (quote
+    (solarized-theme dockerfile-mode docker json-mode docker-tramp json-snatcher json-reformat csv-mode yasnippet-snippets smex pandoc-mode ox-pandoc rainbow-mode rainbow-identifiers lua-mode color-identifiers-mode stickyfunc-enhance srefactor spotify powershell magit-gh-pulls insert-shebang helm-spotify-plus multi helm-gtags helm-company helm-c-yasnippet github-search github-clone github-browse-file gist gh marshal logito pcache ht ggtags fuzzy fish-mode disaster company-statistics company-shell company-nixos-options company-c-headers company-auctex company-anaconda company cmake-mode clang-format auto-yasnippet yasnippet ac-ispell auto-complete xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help unfill org-ref pdf-tools key-chord ivy tablist mwim helm-bibtex parsebib biblio biblio-core auctex-latexmk auctex org-mime yaml-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download nix-mode mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-nixos-options nixos-options helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub let-alist with-editor diff-hl auto-dictionary ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+ '(projectile-use-git-grep t)
+ '(safe-local-variable-values
+   (quote
+    ((TeX-command-extra-options . "-shell-escape -file-line-error")
+     (TeX-command-extra-options . "-shell-escape")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
