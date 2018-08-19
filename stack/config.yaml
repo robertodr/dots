@@ -10,11 +10,11 @@ templates:
   params:
     author-name: Roberto Di Remigio
     author-email: roberto.diremigio@gmail.com
-    copyright: 'Copyright (C) 2017 Roberto Di Remigio' 
+    copyright: 'Copyright (C) 2018 Roberto Di Remigio'
     github-username: robertodr
-    scm-init: git 
+    scm-init: git
 
 nix:
   enable: true
-  pure: false 
+  pure: false
   shell-file: /home/roberto/.stack/shell.nix
