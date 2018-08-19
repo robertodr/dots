@@ -30,7 +30,7 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -152,7 +152,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Fira Code"
                                :size 16
                                :weight normal
                                :width normal
@@ -390,6 +390,45 @@ you should place your code here."
 
   ;; Disable lockfiles
   (setq create-lockfiles nil)
+
+  (defun my-correct-symbol-bounds (pretty-alist)
+      "Prepend a TAB character to each symbol in this alist,
+  this way compose-region called by prettify-symbols-mode
+  will use the correct width of the symbols
+  instead of the width measured by char-width."
+      (mapcar (lambda (el)
+                (setcdr el (string ?\t (cdr el)))
+                el)
+              pretty-alist))
+  (defun my-ligature-list (ligatures codepoint-start)
+      "Create an alist of strings to replace with
+  codepoints starting from codepoint-start."
+      (let ((codepoints (-iterate '1+ codepoint-start (length ligatures))))
+        (-zip-pair ligatures codepoints)))
+
+    (setq my-fira-code-ligatures
+          (let* ((ligs '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
+                         "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
+                         "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
+                         "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
+                         ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
+                         "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
+                         "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
+                         "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
+                         ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
+                         "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
+                         "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
+                         "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>" "%%"
+                         "x" ":" "+" "+" "*")))
+            (my-correct-symbol-bounds (my-ligature-list ligs #Xe100))))
+    ;; nice glyphs for haskell with hasklig
+    (defun my-set-fira-code-ligatures ()
+      "Add fira-code ligatures for use with prettify-symbols-mode."
+      (setq prettify-symbols-alist
+            (append my-fira-code-ligatures prettify-symbols-alist))
+      (prettify-symbols-mode))
+
+    (add-hook 'prog-mode-hook 'my-set-fira-code-ligatures)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -425,11 +464,9 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
  '(package-selected-packages
    (quote
-    (solarized-theme dockerfile-mode docker json-mode docker-tramp json-snatcher json-reformat csv-mode yasnippet-snippets smex pandoc-mode ox-pandoc rainbow-mode rainbow-identifiers lua-mode color-identifiers-mode stickyfunc-enhance srefactor spotify powershell magit-gh-pulls insert-shebang helm-spotify-plus multi helm-gtags helm-company helm-c-yasnippet github-search github-clone github-browse-file gist gh marshal logito pcache ht ggtags fuzzy fish-mode disaster company-statistics company-shell company-nixos-options company-c-headers company-auctex company-anaconda company cmake-mode clang-format auto-yasnippet yasnippet ac-ispell auto-complete xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help unfill org-ref pdf-tools key-chord ivy tablist mwim helm-bibtex parsebib biblio biblio-core auctex-latexmk auctex org-mime yaml-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download nix-mode mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-nixos-options nixos-options helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub let-alist with-editor diff-hl auto-dictionary ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (zenburn-theme zen-and-art-theme white-sand-theme web-mode web-beautify underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit symon sunny-day-theme sublime-themes subatomic256-theme subatomic-theme string-inflection spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme slim-mode seti-theme scss-mode sass-mode reverse-theme rebecca-theme railscasts-theme purple-haze-theme pug-mode professional-theme planet-theme pippel pipenv phoenix-dark-pink-theme phoenix-dark-mono-theme password-generator overseer organic-green-theme org-brain omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme nameless mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme magithub ghub+ apiwrap magit-svn madhat2r-theme lush-theme light-soap-theme kaolin-themes jbeans-theme jazz-theme ir-black-theme inkpot-theme importmagic epc ctable concurrent deferred impatient-mode simple-httpd heroku-theme hemisu-theme helm-xref helm-rtags helm-purpose window-purpose imenu-list helm-css-scss hc-zenburn-theme haml-mode gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-c-style gitignore-templates gandalf-theme flycheck-rtags flycheck-bashate flatui-theme flatland-theme farmhouse-theme eziam-theme exotica-theme evil-org evil-lion evil-goggles evil-cleverparens paredit espresso-theme emmet-mode editorconfig dracula-theme doom-themes all-the-icons memoize django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme counsel-projectile counsel swiper company-web web-completion-data company-rtags rtags company-lua color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme centered-cursor-mode busybee-theme bubbleberry-theme browse-at-remote birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme font-lock+ dotenv-mode dockerfile-mode docker json-mode docker-tramp json-snatcher json-reformat csv-mode yasnippet-snippets smex pandoc-mode ox-pandoc rainbow-mode rainbow-identifiers lua-mode color-identifiers-mode stickyfunc-enhance srefactor spotify powershell magit-gh-pulls insert-shebang helm-spotify-plus multi helm-gtags helm-company helm-c-yasnippet github-search github-clone github-browse-file gist gh marshal logito pcache ht ggtags fuzzy fish-mode disaster company-statistics company-shell company-nixos-options company-c-headers company-auctex company-anaconda company cmake-mode clang-format auto-yasnippet yasnippet ac-ispell auto-complete xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help unfill org-ref pdf-tools key-chord ivy tablist mwim helm-bibtex parsebib biblio biblio-core auctex-latexmk auctex org-mime yaml-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download nix-mode mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-nixos-options nixos-options helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub let-alist with-editor diff-hl auto-dictionary ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(projectile-use-git-grep t)
  '(safe-local-variable-values
    (quote
