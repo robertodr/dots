@@ -29,17 +29,23 @@ values."
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
+   ;; ----------------------------------------------------------------
+   ;; Example of useful layers you may want to use right away.
+   ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
+   ;; <M-m f e R> (Emacs style) to install them.
+   ;; ----------------------------------------------------------------
    dotspacemacs-configuration-layers
-   '(html
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
-     auto-completion
-     bibtex
+   '(asciidoc
+     (auto-completion :variables
+                      auto-completion-enable-help-tooltip t)
      better-defaults
-     c-c++
+     bibtex
+     (c-c++ :variables
+            c-c++-default-mode-for-headers 'c++-mode
+            c-c++-enable-clang-support t
+            c-c++-enable-rtags-support 'no-completion
+            company-clang-arguments '("-Weverything"))
+     cmake
      colors
      csv
      docker
@@ -47,21 +53,36 @@ values."
      git
      github
      gtags
+     (haskell :variables
+              haskell-completion-backend 'intero
+              haskell-enable-hindent t)
      helm
-     latex
+     html
+     (latex :variables
+            latex-build-command "LatexMk"
+            latex-enable-auto-fill t
+            latex-enable-folding t
+            TeX-source-correlate-mode t
+            TeX-source-correlate-method 'synctex)
      lua
      markdown
      nixos
      org
      pandoc
-     python
+     (python :variables
+             python-test-runner 'pytest
+             python-sort-imports-on-save t)
      semantic
-     shell
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
      shell-scripts
      smex
-     spell-checking
+     (spell-checking :variables
+                     spell-checking-enable-auto-dictionary t)
      spotify
-     syntax-checking
+     (syntax-checking :variables
+                      syntax-checking-enable-tooltips t)
      themes-megapack
      version-control
      windows-scripts
@@ -73,6 +94,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
+     editorconfig
      yasnippet-snippets
      )
    ;; A list of packages that cannot be updated.
@@ -130,7 +152,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner '999
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -321,11 +343,7 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
-  ;; Set up for LaTeX layer
-  (setq latex-build-command "LatexMk")
-
   ;; Magit set up
-  (setq magit-repository-directories '("~/Workspace/"))
   (setq-default git-commit-summary-max-length 50)
   )
 
@@ -337,56 +355,19 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; Magit set up
+  (setq magit-repository-directories '("~/Workspace/"))
+
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
   ;; Tab-width
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 4)
 
-  ;; Set up for C/C++ layer
-  (setq c-c++-default-mode-for-headers 'c++-mode)
-  ;; Clang support (clang-format & clang-complete snippets)
-  (setq c-c++-enable-clang-support t)
-  (setq company-clang-arguments '("-Weverything"))
-  ;; Bind clang-format-region to C-M-tab in all modes:
-  (global-set-key [C-M-tab] 'clang-format-region)
-  (defun clang-format-bindings ()
-    (define-key c++-mode-map [tab] 'clang-format-buffer))
-  ;; Flycheck and clang arugments for syntax checking in C/C++
-  (add-hook 'c++-mode-hook
-            (lambda ()
-              (setq flycheck-clang-language-standard "c++11"))
-            'clang-format-bindings)
-  (add-hook 'c-mode-hook
-            (lambda ()
-              (setq flycheck-clang-language-standard "c99"))
-            'clang-format-bindings)
-
-  ;; Set up for LaTeX layer
-  (setq latex-enable-auto-fill t)
-  (setq latex-enable-folding t)
-  (setq TeX-source-correlate-mode t)
-  (setq TeX-source-correlate-method 'synctex)
-
-  ;; Set up for Python layer
-  (setq python-test-runner 'pytest)
-  (setq python-sort-imports-on-save t)
-
-  ;; Set up for shell layer
-  (setq shell-default-height 30)
-  (setq shell-default-position 'bottom)
-
-  ;; Set up for syntax checking layer
-  (setq spell-checking-enable-auto-dictionary t)
-
   ;; TODO highlighting
   (defun highlight-todos ()
     (font-lock-add-keywords nil '(("\\<\\(NOTE\\|TODO\\|HACK\\|FIXME\\|BUG\\):" 1 font-lock-warning-face t))))
   (add-hook 'prog-mode-hook #'highlight-todos)
-
-  ;; Autocomplete docstring tooltips
-  (setq auto-completion-enable-help-tooltip t)
-  (setq syntax-checking-enable-tooltips t)
 
   ;; Disable lockfiles
   (setq create-lockfiles nil)
@@ -464,9 +445,11 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
  '(package-selected-packages
    (quote
-    (zenburn-theme zen-and-art-theme white-sand-theme web-mode web-beautify underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit symon sunny-day-theme sublime-themes subatomic256-theme subatomic-theme string-inflection spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme slim-mode seti-theme scss-mode sass-mode reverse-theme rebecca-theme railscasts-theme purple-haze-theme pug-mode professional-theme planet-theme pippel pipenv phoenix-dark-pink-theme phoenix-dark-mono-theme password-generator overseer organic-green-theme org-brain omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme nameless mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme magithub ghub+ apiwrap magit-svn madhat2r-theme lush-theme light-soap-theme kaolin-themes jbeans-theme jazz-theme ir-black-theme inkpot-theme importmagic epc ctable concurrent deferred impatient-mode simple-httpd heroku-theme hemisu-theme helm-xref helm-rtags helm-purpose window-purpose imenu-list helm-css-scss hc-zenburn-theme haml-mode gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-c-style gitignore-templates gandalf-theme flycheck-rtags flycheck-bashate flatui-theme flatland-theme farmhouse-theme eziam-theme exotica-theme evil-org evil-lion evil-goggles evil-cleverparens paredit espresso-theme emmet-mode editorconfig dracula-theme doom-themes all-the-icons memoize django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme counsel-projectile counsel swiper company-web web-completion-data company-rtags rtags company-lua color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme centered-cursor-mode busybee-theme bubbleberry-theme browse-at-remote birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme font-lock+ dotenv-mode dockerfile-mode docker json-mode docker-tramp json-snatcher json-reformat csv-mode yasnippet-snippets smex pandoc-mode ox-pandoc rainbow-mode rainbow-identifiers lua-mode color-identifiers-mode stickyfunc-enhance srefactor spotify powershell magit-gh-pulls insert-shebang helm-spotify-plus multi helm-gtags helm-company helm-c-yasnippet github-search github-clone github-browse-file gist gh marshal logito pcache ht ggtags fuzzy fish-mode disaster company-statistics company-shell company-nixos-options company-c-headers company-auctex company-anaconda company cmake-mode clang-format auto-yasnippet yasnippet ac-ispell auto-complete xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help unfill org-ref pdf-tools key-chord ivy tablist mwim helm-bibtex parsebib biblio biblio-core auctex-latexmk auctex org-mime yaml-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download nix-mode mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-nixos-options nixos-options helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub let-alist with-editor diff-hl auto-dictionary ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (zenburn-theme tao-theme string-inflection magithub kaolin-themes impatient-mode editorconfig doom-themes dante lcr counsel-projectile counsel apropospriate-theme rtags haskell-mode treepy graphql dockerfile-mode docker json-mode docker-tramp json-snatcher json-reformat csv-mode yasnippet-snippets smex pandoc-mode ox-pandoc rainbow-mode rainbow-identifiers lua-mode color-identifiers-mode stickyfunc-enhance srefactor spotify powershell magit-gh-pulls insert-shebang helm-spotify-plus multi helm-gtags helm-company helm-c-yasnippet github-search github-clone github-browse-file gist gh marshal logito pcache ht ggtags fuzzy fish-mode disaster company-statistics company-shell company-nixos-options company-c-headers company-auctex company-anaconda company cmake-mode clang-format auto-yasnippet yasnippet ac-ispell auto-complete xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help unfill org-ref pdf-tools key-chord ivy tablist mwim helm-bibtex parsebib biblio biblio-core auctex-latexmk auctex org-mime yaml-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download nix-mode mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-nixos-options nixos-options helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub let-alist with-editor diff-hl auto-dictionary ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(projectile-use-git-grep t)
  '(safe-local-variable-values
    (quote
