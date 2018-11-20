@@ -28,6 +28,8 @@ in
       ".config/kitty" = inHome ".dots/config/kitty";
       # Neovim
       ".config/nvim" = inHome ".dots/config/nvim";
+      # nixpkgs
+      ".config/nixpkgs" = inHome ".dots/config/nixpkgs";
       # Spacemacs
       ".spacemacs" = inHome ".dots/spacemacs";
       # Stack

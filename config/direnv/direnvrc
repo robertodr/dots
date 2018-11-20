@@ -1,16 +1,30 @@
 : ${XDG_CACHE_HOME:=$HOME/.cache}
 
-# Usage: use_nix [...]
-#
-# Load environment variables from `nix-shell`.
-# If you have a `default.nix` or `shell.nix` these will be
-# used by default, but you can also specify packages directly
-# (e.g `use nix -p ocaml`).
-#
+# Cached nix-shell
+# See here: https://github.com/direnv/direnv/wiki/Nix#speeding-things-up
 use_nix() {
-  direnv_load nix-shell --show-trace "$@" --run 'direnv dump'
+  local cache=".direnv.$(nixos-version --hash)"
+  # If using with the library of shells in the overlays, extract name of overlay file
+  if [[ "$@" =~ [\<A-Za-z0-9_-\>].\-A ]];
+  then
+    local overlay="$3"
+  fi
+  if [[ ! -e "$cache" ]] || \
+     [[ "$HOME/.direnvrc" -nt "$cache" ]] || \
+     [[ ".envrc" -nt "$cache" ]] || \
+     [[ "default.nix" -nt "$cache" ]] || \
+     [[ "shell.nix" -nt "$cache" ]] || \
+     [[ "$overlay.nix" -nt "$cache" ]]; 
+  then
+    local tmp="$(mktemp "${cache}.tmp-XXXXXXXX")"
+    trap "rm -rf '$tmp'" EXIT
+    nix-shell --show-trace "$@" --run 'direnv dump' > "$tmp" && \
+      mv "$tmp" "$cache"
+  fi
+  direnv_load cat "$cache"
   if [[ $# = 0 ]]; then
     watch_file default.nix
     watch_file shell.nix
+    watch_file $overlay.nix
   fi
 }
