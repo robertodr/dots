@@ -1,30 +1,88 @@
-: ${XDG_CACHE_HOME:=$HOME/.cache}
-
-# Cached nix-shell
-# See here: https://github.com/direnv/direnv/wiki/Nix#speeding-things-up
+# Usage: use_nix [...]
+#
+# Load environment variables from `nix-shell`.
+# In order of precedence:
+#   1. shell.nix in current directory
+#   2. default.nix in current directory
+#   3. shells in the overlays
+# one of these will be used and the derived environment will be stored at
+# ./.direnv/env-<hash> and symlink to it will be created at ./.direnv/default.
+# Dependencies are added to the GC roots, such that the environment remains persistent.
+#
+# Packages can also be specified directly via e.g `use nix -p ocaml`,
+# however those will not be added to the GC roots.
+#
+# The resulting environment is cached for better performance.
+#
+# To trigger switch to a different environment:
+# `rm -f .direnv/default`
+#
+# To derive a new environment:
+# `rm -rf .direnv/env-$(md5sum {shell,default}.nix 2> /dev/null | cut -c -32)`
+#
+# To remove cache:
+# `rm -f .direnv/dump-*`
+#
+# To remove all environments:
+# `rm -rf .direnv/env-*`
+#
+# To remove only old environments:
+# `find .direnv -name 'env-*' -and -not -name `readlink .direnv/default` -exec rm -rf {} +`
+#
+# See here: https://github.com/direnv/direnv/wiki/Nix#persistent-cached-shell
 use_nix() {
-  local cache=".direnv.$(nixos-version --hash)"
-  # If using with the library of shells in the overlays, extract name of overlay file
-  if [[ "$@" =~ [\<A-Za-z0-9_-\>].\-A ]];
-  then
-    local overlay="$3"
-  fi
-  if [[ ! -e "$cache" ]] || \
-     [[ "$HOME/.direnvrc" -nt "$cache" ]] || \
-     [[ ".envrc" -nt "$cache" ]] || \
-     [[ "default.nix" -nt "$cache" ]] || \
-     [[ "shell.nix" -nt "$cache" ]] || \
-     [[ "$overlay.nix" -nt "$cache" ]]; 
-  then
-    local tmp="$(mktemp "${cache}.tmp-XXXXXXXX")"
-    trap "rm -rf '$tmp'" EXIT
-    nix-shell --show-trace "$@" --run 'direnv dump' > "$tmp" && \
-      mv "$tmp" "$cache"
-  fi
-  direnv_load cat "$cache"
-  if [[ $# = 0 ]]; then
-    watch_file default.nix
-    watch_file shell.nix
-    watch_file $overlay.nix
-  fi
+    set -e
+
+    if [[ -f "shell.nix" ]]; then
+        echo "Using shell.nix in ${PWD}"
+        shell="shell.nix"
+        instatiate_arg="${shell}"
+        shell_arg="$@"
+    elif [[ -f "default.nix" ]]; then
+        echo "Using default.nix in ${PWD}"
+        shell="default.nix"
+        instatiate_arg="${shell}"
+        shell_arg="$@"
+    elif [[ "$@" =~ [\<A-Za-z0-9_-\>].\-A ]]; then
+        echo "Using $3.nix in .config/nixpkgs/overlays"
+        shell="${HOME}/.config/nixpkgs/overlays/$3.nix"
+        instatiate_arg="$1 $2 $3"
+        shell_arg="${@:4}"
+    else
+        echo "use nix: don't know how to build the shell"
+        exit 1
+    fi
+
+    local dir="${PWD}"/.direnv
+    local default="${dir}/default"
+    if [[ ! -L "${default}" ]] || [[ ! -d `readlink "${default}"` ]]; then
+        local wd="${dir}/env-`md5sum "${shell}" | cut -c -32`" # TODO: Hash also the nixpkgs version?
+        mkdir -p "${wd}"
+
+        local drv="${wd}/env.drv"
+        if [[ ! -f "${drv}" ]]; then
+            log_status "use nix: deriving new environment"
+            IN_NIX_SHELL=1 nix-instantiate --add-root "${drv}" --indirect ${instatiate_arg} > /dev/null
+            nix-store -r `nix-store --query --references "${drv}"` --add-root "${wd}/dep" --indirect > /dev/null
+        fi
+
+        rm -f "${default}"
+        ln -s `basename "${wd}"` "${default}"
+    fi
+
+    local drv=`readlink -f "${default}/env.drv"`
+    local dump="${dir}/dump-`md5sum ".envrc" | cut -c -32`-`md5sum ${drv} | cut -c -32`"
+
+    if [[ ! -f "${dump}" ]] || [[ "$HOME/.config/direnv/direnvrc" -nt "${dump}" ]]; then
+        log_status "use nix: updating cache"
+
+        old=`find "${dir}" -name 'dump-*'`
+        nix-shell "${drv}" --show-trace ${shell_arg} --run 'direnv dump' > "${dump}"
+        rm -f ${old}
+    fi
+
+    direnv_load cat "${dump}"
+
+    watch_file "${default}"
+    watch_file "${shell}"
 }
