@@ -45,4 +45,9 @@ self: super:
   libxc = super.callPackage ./pkgs/libxc.nix {
     shared = true;
   };
+
+  json-fortran = super.callPackage ./pkgs/json-fortran.nix {
+    gfortran = self.gfortran;
+    shared = true;
+  };
 }

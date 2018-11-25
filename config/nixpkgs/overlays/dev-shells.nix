@@ -1,59 +1,5 @@
 self: super:
 {
-  dalton = super.mkShell {
-    name = "DALTON";
-    buildInputs = with self; [
-      boost
-      cmake
-      gcc
-      gfortran
-      liblapackWithoutAtlas
-      python3Full
-      python3Packages.docopt
-      python3Packages.jupyter
-      python3Packages.matplotlib
-      python3Packages.numpy
-      python3Packages.pyyaml
-      valgrind
-      zlib
-    ];
-    hardeningDisable = [ "all" ];
-    src = null;
-    shellHook = ''
-    SOURCE_DATE_EPOCH=$(date +%s)
-    '';
-  };
-
-  mrchem = super.mkShell {
-    name = "MRChem";
-    buildInputs = with self; [
-      boost
-      clang-analyzer
-      clang-tools
-      cmake
-      doxygen_gui
-      eigen3_3
-      exa
-      gcc
-      gdb
-      graphviz
-      lcov
-      ninja-kitware
-      python3Packages.click
-      python3Packages.docopt
-      python3Packages.pyparsing
-      python3Packages.pyyaml
-      python3Packages.yapf
-      valgrind
-    ];
-    src = null;
-    shellHook = ''
-    export NINJA_STATUS="[Built edge %f of %t in %e sec]"
-    SOURCE_DATE_EPOCH=$(date +%s)
-    '';
-    hardeningDisable = [ "all" ];
-  };
-
   math-detect = super.mkShell {
     name = "math-detect";
     buildInputs = with self; [
@@ -62,23 +8,6 @@ self: super:
       liblapackWithoutAtlas
       mkl
     ];
-    hardeningDisable = [ "all" ];
-  };
-
-  solver = super.mkShell {
-    name = "solver";
-    buildInputs = with self; [
-      mypy
-      pipenv
-      python3Packages.bokeh
-      python3Packages.jupyterlab
-      python3Packages.matplotlib
-      python3Packages.numpy
-    ];
-    src = null;
-    shellHook = ''
-    SOURCE_DATE_EPOCH=$(date +%s)
-    '';
     hardeningDisable = [ "all" ];
   };
 
