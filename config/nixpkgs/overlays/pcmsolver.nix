@@ -1,33 +1,27 @@
 self: super:
 {
-  psi4 = super.mkShell {
-    name = "Psi4";
+  pcmsolver = super.mkShell {
+    name = "PCMSolver";
     hardeningDisable = [ "all" ];
     buildInputs = with self; [
       boost
       bundler
+      ccache
       clang
       clang-analyzer
       clang-tools
       cmake
-      gau2grid
-      gdb
+      doxygen_gui
+      ffmpeg
       gfortran
-      libint
-      liblapackWithoutAtlas
-      libxc
-      lldb
-      #mkl
-      ninja-kitware
+      graphviz
+      lcov
       pipenv
-      pybind11
+      python3Packages.docopt
       python3Packages.jupyter
       python3Packages.matplotlib
-      python3Packages.networkx
       python3Packages.numpy
-      python3Packages.pint
-      python3Packages.pytest
-      python3Packages.sphinx
+      python3Packages.pyyaml
       python3Packages.yapf
       valgrind
       zlib
@@ -36,7 +30,6 @@ self: super:
     shellHook = ''
     export NINJA_STATUS="[Built edge %f of %t in %e sec]"
     SOURCE_DATE_EPOCH=$(date +%s)
-    PATH=$PATH:$(dirname $(find /nix -name run-clang-tidy.py))
     '';
   };
 }
