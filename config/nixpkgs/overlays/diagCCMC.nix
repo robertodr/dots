@@ -10,8 +10,10 @@ self: super:
       cmake
       lldb
       mypy
+      ninja-kitware
       pipenv
       pybind11
+      python3Packages.click
       python3Packages.docopt
       python3Packages.jupyter
       python3Packages.matplotlib

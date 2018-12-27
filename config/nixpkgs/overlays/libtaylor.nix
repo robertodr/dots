@@ -11,6 +11,7 @@ self: super:
       pybind11
       python3Packages.jupyter
       python3Packages.numpy
+      python3Packages.pytest
       python3Packages.yapf
     ];
     src = null;

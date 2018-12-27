@@ -4,8 +4,12 @@ self: super:
     name = "parselglossy";
     hardeningDisable = [ "all" ];
     buildInputs = with self; [
+      cmake
+      gcc
+      gfortran
       pipenv
       python3Packages.click
+      python3Packages.ipython
       python3Packages.jupyter
       python3Packages.pyparsing
       python3Packages.pytest

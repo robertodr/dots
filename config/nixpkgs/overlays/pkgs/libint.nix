@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ cmake ];
 
   cmakeFlags = [
-    "-DMAX_AM_ERI=8"
+    "-DMAX_AM_ERI=5"
     "-DBUILD_FPIC=ON"
     "-DMERGE_LIBDERIV_INCLUDEDIR=ON"
     # These shouldn't be needed...
