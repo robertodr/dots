@@ -44,6 +44,8 @@ use_nix() {
         instatiate_arg="${shell}"
         shell_arg="$@"
     elif [[ "$@" =~ [\<A-Za-z0-9_-\>].\-A ]]; then
+        # invocation of the form use nix '<nixos-unstable>' -A psi4
+        # that uses a local overlay psi4.nix
         echo "Using $3.nix in .config/nixpkgs/overlays"
         shell="${HOME}/.config/nixpkgs/overlays/$3.nix"
         instatiate_arg="$1 $2 $3"

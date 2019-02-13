@@ -13,8 +13,3 @@ templates:
     copyright: 'Copyright (C) 2018 Roberto Di Remigio'
     github-username: robertodr
     scm-init: git
-
-nix:
-  enable: true
-  pure: false
-  shell-file: /home/roberto/.stack/shell.nix

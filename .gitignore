@@ -1,2 +1,12 @@
 config/fish/fishd.*
 config/direnv/allow
+stack/build-plan-cache/
+stack/build-plan/
+stack/indices/
+stack/loaded-snapshot-cache/
+stack/precompiled/
+stack/setup-exe-cache/
+stack/setup-exe-src/
+stack/snapshots/
+stack/global-project/
+stack/compiler-tools/

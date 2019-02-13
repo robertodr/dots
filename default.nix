@@ -32,6 +32,7 @@ in
       ".config/nixpkgs" = inHome ".dots/config/nixpkgs";
       # Spacemacs
       ".spacemacs" = inHome ".dots/spacemacs";
+      ".treemacs-persist" = inHome ".dots/treemacs-persist";
       # Stack
       ".stack" = inHome ".dots/stack";
       # Liferea

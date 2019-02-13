@@ -14,10 +14,7 @@ self: super:
       gcc
       gfortran
       graphviz
-      jansson
-      json-fortran
       lcov
-      nlohmann_json
       pipenv
       python3Packages.jupyter
       python3Packages.pyparsing

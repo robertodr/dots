@@ -4,23 +4,20 @@ self: super:
     name = "MRChem";
     buildInputs = with self; [
       boost
+      clang
       clang-analyzer
       clang-tools
       cmake
       doxygen_gui
-      eigen3_3
+      eigen
       exa
-      gcc
       gdb
       graphviz
       lcov
       ninja-kitware
       pipenv
-      python3Packages.click
-      python3Packages.docopt
-      python3Packages.pyparsing
-      python3Packages.pyyaml
-      python3Packages.yapf
+      pybind11
+      travis
       valgrind
     ];
     src = null;
