@@ -1,5 +1,7 @@
 # dots
 
+**WARNING** I have moved this repository to a [Keybase encrypted Git](https://keybase.io/blog/encrypted-git-for-everyone) repository.
+
 My dotfiles, inspired by [juselius/dotfiles](https://github.com/juselius/dotfiles), MIT-licensed.
 
     $ git clone https://github.com/robertodr/dots .dots
